@@ -14,9 +14,6 @@ function SignIn() {
     event.preventDefault();
     setMessage("");
 
-    console.log("VITE_API_LOGIN_URL:", import.meta.env.VITE_API_LOGIN_URL);
-    console.log("Full URL:", `${import.meta.env.VITE_API_LOGIN_URL}/login`);
-
     try {
       const res = await fetch(`${import.meta.env.VITE_API_LOGIN_URL}/login`, {
         method: "POST",

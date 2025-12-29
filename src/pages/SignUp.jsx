@@ -84,7 +84,7 @@ function SignUp() {
 
   return (
     <motion.div
-      className="h-screen flex justify-center lg:justify-start lg:pl-60 text-white overflow-hidden"
+      className="h-screen flex justify-center lg:justify-start lg:pl-60 text-white overflow-hidden pt-16"
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.9, ease: "easeOut" }}
