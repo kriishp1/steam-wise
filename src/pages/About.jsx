@@ -9,34 +9,39 @@ function About() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.9, ease: "easeOut" }}
     >
-      <h1 className="text-4xl font-bold text-blue-400">About SteamSale</h1>
+      <h1 className="text-4xl font-bold text-white">About Steamwise</h1>
       <div className="text-lg text-white/90 max-w-4xl text-center space-y-6 px-6">
         <p className="text-xl text-blue-300 font-medium">
-          Never miss the perfect gaming deal again.
+          Discover everything about your favorite games with Steamwise!
         </p>
-        
         <p>
-          SteamSale is an intelligent game deal tracker that uses advanced AI to predict when your favorite Steam games will go on sale. We analyze thousands of games, historical pricing data, seasonal patterns, and market trends to give you accurate predictions about upcoming discounts.
+          Instantly get detailed information, reviews, and price history for any
+          game. Plus, receive smart recommendations for similar games you'll
+          love. Whether you're searching for your next adventure or just want to
+          know more about a title, Steamwise is your go-to hub for game
+          discovery and recommendations.
         </p>
-        
-        <p>
-          Built by gamers, for gamers, we understand the frustration of buying a game at full price only to see it discounted days later. Our platform sends you alerts before sales happen, so you can plan your purchases and maximize your gaming budget.
-        </p>
-        
         <div className="grid md:grid-cols-3 gap-6 mt-8">
           <div className="bg-white/10 p-4 rounded-lg">
-            <h3 className="text-blue-400 font-bold mb-2">AI Predictions</h3>
-            <p className="text-sm">Advanced algorithms analyze pricing patterns to predict future sales with high accuracy.</p>
+            <h3 className="text-blue-400 font-bold mb-2">Game Info</h3>
+            <p className="text-sm">
+              Get instant access to detailed information, reviews, and price
+              history for any game on Steam.
+            </p>
           </div>
-          
           <div className="bg-white/10 p-4 rounded-lg">
-            <h3 className="text-blue-400 font-bold mb-2">Smart Alerts</h3>
-            <p className="text-sm">Get notified before sales start, not after they end. Set custom price targets for maximum savings.</p>
+            <h3 className="text-blue-400 font-bold mb-2">Recommendations</h3>
+            <p className="text-sm">
+              Discover new games you'll love with our intelligent recommendation
+              engine based on genres and tags.
+            </p>
           </div>
-          
           <div className="bg-white/10 p-4 rounded-lg">
-            <h3 className="text-blue-400 font-bold mb-2">Save Money</h3>
-            <p className="text-sm">Our users save an average of 60% on their game purchases by timing their buys perfectly.</p>
+            <h3 className="text-blue-400 font-bold mb-2">APIs</h3>
+            <p className="text-sm">
+              Game info, deals, and recommendations are powered by Steam, ITAD,
+              and RAWG APIs.
+            </p>
           </div>
         </div>
       </div>

@@ -5,11 +5,13 @@ dotenv.config();
 
 const { Pool } = pkg;
 
+const dbPassword = String(process.env.DB_PASSWORD || '');
+
 const pool = new Pool({
   host: "localhost",
   user: "postgres",
   port: 5432,
-  password: process.env.DB_PASSWORD,
+  password: dbPassword,
   database: "myDB",
 });
 

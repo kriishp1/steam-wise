@@ -37,7 +37,7 @@ app.post("/signup", async (req, res) => {
   try {
     const hash = await bcrypt.hash(password, 12);
 
-    const result = await pool.query(`SELECT * FROM users WHERE email = $1`, [
+    const result = await pool.query(`SELECT * FROM users WHERE email = $1 AND is_verified = true`, [
       email,
     ]);
 
@@ -64,13 +64,13 @@ app.post("/signup", async (req, res) => {
         email: userEmail,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "6hr" }
+      { expiresIn: "24hr" }
     );
 
     // update the verification token, we previously created one so this just adds it to the database
     await pool.query(
       `UPDATE users SET verification_token = $1,
-      token_expires_at = NOW() + INTERVAL '6 hours' WHERE ID = $2`,
+      token_expires_at = NOW() + INTERVAL '24 hours' WHERE ID = $2`,
       [verificationToken, userId]
     );
 
@@ -86,7 +86,7 @@ app.post("/signup", async (req, res) => {
         <h1>Welcome ${firstName}!</h1>
         <p>Please verify your email address by clicking the link below:</p>
         <a href="${verificationUrl}">Verify Email</a>
-        <p>This link expires in 6 hours.</p>
+        <p>This link expires in 24 hours.</p>
       `,
     });
 
@@ -121,7 +121,7 @@ app.get("/verify-email", async (req, res) => {
       return res.status(400).send(`
         <h1>Verification Failed</h1>
         <p>This link is invalid or has expired.</p>
-        <a href="http://localhost:5173/signup">Sign up again</a>
+        <a href="${process.env.VITE_FRONTEND_URL}/signup">Sign up again</a>
       `);
     }
 
@@ -134,7 +134,7 @@ app.get("/verify-email", async (req, res) => {
       <h1>Email Verified!</h1>
       <p>Your email has been successfully verified.</p>
       <p>You can now log in to your account.</p>
-      <a href="http://localhost:5173/login">Go to Login</a>
+      <a href="${process.env.VITE_FRONTEND_URL}/login">Go to Login</a>
     `);
   } catch (error) {
     console.error(error);

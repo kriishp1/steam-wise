@@ -10,13 +10,12 @@ function SignIn() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setMessage("");
 
     try {
-      const res = await fetch("http://localhost:3001/login", {
+      const res = await fetch(`${import.meta.env.VITE_API_LOGIN_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

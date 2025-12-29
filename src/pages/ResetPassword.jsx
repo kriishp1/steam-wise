@@ -13,24 +13,24 @@ function ResetPassword() {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const validatePassword = (password) => {
+  const validatePassword = (newPassword) => {
     // Check length
-    if (password.length < 6) {
+    if (newPassword < 6) {
       return "Password must be at least 6 characters";
     }
 
     // Check for at least one letter
-    if (!/[a-zA-Z]/.test(password)) {
+    if (!/[a-zA-Z]/.test(newPassword)) {
       return "Password must include at least one letter";
     }
 
     // Check for at least one number
-    if (!/[0-9]/.test(password)) {
+    if (!/[0-9]/.test(newPassword)) {
       return "Password must include at least one number";
     }
 
     // Check for at least one special symbol
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(newPassword)) {
       return "Password must include at least one symbol (!@#$%^&*...)";
     }
 
@@ -41,7 +41,7 @@ function ResetPassword() {
     event.preventDefault();
     setMessage("");
 
-    const passwordError = validatePassword(password);
+    const passwordError = validatePassword(newPassword);
     if (passwordError) {
       setMessage(passwordError);
       return;
@@ -58,16 +58,19 @@ function ResetPassword() {
         return;
       }
 
-      const res = await fetch("http://localhost:3002/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token,
-          newPassword,
-        }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_RESET_PASSWORD_URL}/reset-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token,
+            newPassword,
+          }),
+        }
+      );
 
       const data = await res.json();
 

@@ -30,11 +30,10 @@ app.post("/login", async (req, res) => {
     if (!user.is_verified) {
       return res.status(403).json({
         error: "Please verify your email before logging in",
-        needsVerification: true
-      })
+        needsVerification: true,
+      });
     }
 
-    
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
@@ -42,7 +41,12 @@ app.post("/login", async (req, res) => {
     res.json({
       success: true,
       token: token,
-      user: { id: user.id, email: user.email },
+      user: {
+        id: user.id,
+        email: user.email,
+        first: user.first_name,
+        last: user.last_name,
+      },
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
