@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const app = express();
+const router = express.Router();
 
 // make transporter for emails, this is the one that sends the emails
 const transporter = nodemailer.createTransport({
@@ -21,9 +21,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-app.use(cors());
-app.use(express.json());
-app.post("/forgot-password", async (req, res) => {
+router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -61,7 +59,7 @@ app.post("/forgot-password", async (req, res) => {
       [resetToken, user.id]
     );
 
-    const passwordResetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+    const passwordResetUrl = `${process.env.VITE_FRONTEND_URL}/reset-password?token=${resetToken}`;
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
@@ -84,7 +82,7 @@ app.post("/forgot-password", async (req, res) => {
   }
 });
 
-app.post("/reset-password", async (req, res) => {
+router.post("/reset-password", async (req, res) => {
   try {
     const { token, newPassword } = req.body;
 
@@ -137,6 +135,4 @@ app.post("/reset-password", async (req, res) => {
   }
 });
 
-app.listen(3002, () => {
-  console.log("Server running on http://localhost:3002");
-});
+export default router;

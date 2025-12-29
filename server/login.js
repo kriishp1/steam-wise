@@ -4,11 +4,9 @@ import bcrypt from "bcrypt";
 import cors from "cors";
 import jwt from "jsonwebtoken";
 
-const app = express();
+const router = express.Router();
 
-app.use(cors());
-app.use(express.json());
-app.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -53,6 +51,4 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.listen(3001, () => {
-  console.log("Server running on http://localhost:3001");
-});
+export default router;

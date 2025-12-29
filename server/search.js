@@ -10,12 +10,10 @@ const ITAD_API_KEY = process.env.API_KEY_ITAD;
 const RAWG_API_KEY = process.env.API_KEY_RAWG;
 const ITAD_BASE_URL = "https://api.isthereanydeal.com";
 
-const app = express();
+const router = express.Router()
 const cache = new NodeCache({ stdTTL: 600, checkperiod: 120 });
-app.use(cors());
-app.use(express.json());
 
-app.get("/api/search", async (req, res) => {
+router.get("/api/search", async (req, res) => {
   try {
     const { q } = req.query;
 
@@ -70,7 +68,7 @@ app.get("/api/search", async (req, res) => {
   }
 });
 
-app.get("/api/game/:id", async (req, res) => {
+router.get("/api/game/:id", async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const cacheKey = `game-${req.params.id}--page-${page}`;
   const cacheResult = cache.get(cacheKey);
@@ -184,8 +182,4 @@ app.get("/api/game/:id", async (req, res) => {
   res.json(finalResponse);
 });
 
-
-
-app.listen(3003, () => {
-  console.log("Server running on port 3003");
-});
+export default router;

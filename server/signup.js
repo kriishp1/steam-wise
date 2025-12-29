@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const app = express();
+const router = express.Router();
 
 // create a transporter that is sending the email
 const transporter = nodemailer.createTransport({
@@ -20,11 +20,8 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-app.use(cors());
-app.use(express.json());
-
 // go to signup page and make sure all fields are filled in
-app.post("/signup", async (req, res) => {
+router.post("/signup", async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
   if (!firstName || !lastName || !email || !password) {
     return res.status(400).json({ error: "Missing required fields" });
@@ -37,9 +34,10 @@ app.post("/signup", async (req, res) => {
   try {
     const hash = await bcrypt.hash(password, 12);
 
-    const result = await pool.query(`SELECT * FROM users WHERE email = $1 AND is_verified = true`, [
-      email,
-    ]);
+    const result = await pool.query(
+      `SELECT * FROM users WHERE email = $1 AND is_verified = true`,
+      [email]
+    );
 
     if (result.rows.length > 0) {
       return res.status(400).json({ error: "Account already exists" });
@@ -64,7 +62,7 @@ app.post("/signup", async (req, res) => {
         email: userEmail,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "24hr" }
+      { expiresIn: "24h" }
     );
 
     // update the verification token, we previously created one so this just adds it to the database
@@ -100,7 +98,7 @@ app.post("/signup", async (req, res) => {
 });
 
 // the GET request to see if the verification was successful
-app.get("/verify-email", async (req, res) => {
+router.get("/verify-email", async (req, res) => {
   try {
     const { token } = req.query;
 
@@ -145,6 +143,4 @@ app.get("/verify-email", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
+export default router;
