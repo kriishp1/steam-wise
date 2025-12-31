@@ -270,31 +270,12 @@ function Dashboard() {
                     />
                     <div className="font-semibold truncate ml-0 sm:ml-2 mt-2 sm:mt-0">
                       {game.name}
-                      <a
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-end gap-1 ml-4 mt-1 px-2 py-1 text-xs bg-blue-500/20 text-blue-300 rounded hover:bg-blue-500/40 transition-colors"
-                        style={{ display: "inline-block" }}
-                      >
-                        View on ITAD →
-                      </a>
+                      {/* ITAD link removed */}
                       <p className="text-sm text-green-400">
                         Metacritic score: {game.metacritic}
                       </p>
                       <p className="text-sm">{game.rating}/5</p>
                     </div>
-                  </div>
-                  {/* Always show the link below on mobile */}
-                  <div className="block sm:hidden mt-2">
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-end gap-1 px-2 py-1 text-xs bg-blue-500/20 text-blue-300 rounded hover:bg-blue-500/40 transition-colors w-full justify-center"
-                    >
-                      View on ITAD →
-                    </a>
                   </div>
                 </div>
               ))}
