@@ -22,7 +22,7 @@ function Navbar() {
             className="text-white hover:text-blue-400 transition-colors duration-300"
             style={{ textDecoration: "none" }}
           >
-            SteamSale
+            Steamwise
           </Link>
         </div>
       </motion.div>
